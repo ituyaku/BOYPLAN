@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOYPLAN MEMORIES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            background-color: rgb(18, 18, 18);
+        }
+        .grid {
+            display: grid;
+            gap: 12px;
+        }
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .overflow-hidden {
+            overflow: hidden;
+        }
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .bg-gray-100 {
+            background-color: #f7fafc;
+        }
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .w-full {
+            width: 100%;
+        }
+        .h-full {
+            height: 100%;
+        }
+        .object-cover {
+            object-fit: cover;
+        }
+        .transition-transform {
+            transition-property: transform;
+            transition-duration: 0.2s;
+            transition-timing-function: ease-out;
+        }
+        .hover\:scale-102:hover {
+            transform: scale(1.02);
+        }
+        .fixed {
+            position: fixed;
+        }
+        .inset-0 {
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .bg-black {
+            background-color: #000;
+        }
+        .bg-opacity-80 {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .flex {
+            display: flex;
+        }
+        .items-center {
+            align-items: center;
+        }
+        .justify-center {
+            justify-content: center;
+        }
+        .z-50 {
+            z-index: 50;
+        }
+        .relative {
+            position: relative;
+        }
+        .shadow-2xl {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .bg-white {
+            background-color: #fff;
+        }
+        .rounded-t-xl {
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        .p-4 {
+            padding: 1rem;
+        }
+        .text-gray-800 {
+            color: #2d3748;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        .absolute {
+            position: absolute;
+        }
+        .top-4 {
+            top: 1rem;
+        }
+        .right-4 {
+            right: 1rem;
+        }
+        .z-10 {
+            z-index: 10;
+        }
+        .text-white {
+            color: #fff;
+        }
+        .hover\:text-gray-100:hover {
+            color: #f7fafc;
+        }
+        .bg-black\/30 {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .hover\:bg-black\/40:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        .transition-colors {
+            transition-property: background-color, color;
+            transition-duration: 0.15s;
+            transition-timing-function: ease-in-out;
+        }
+        .h-6 {
+            height: 1.5rem;
+        }
+        .w-6 {
+            width: 1.5rem;
+        }
+        .p-6 {
+            padding: 1.5rem;
+        }
+        .max-w-full {
+            max-width: 100%;
+        }
+        .max-h-full {
+            max-height: 100%;
+        }
+        .object-contain{
+            object-fit: contain;
+        }
+        .image-square {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%; /* Makes the div square */
+            overflow: hidden;
+            position: relative; /* Needed for absolute positioning of the img */
+            background-color: rgb(18, 18, 18);  /* set default background color for image container */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .image-square img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the square */
+            transition: transform 0.2s ease-in-out; /* Added smooth transition */
+            transform-origin: center;
+        }
+
+        .image-square:hover img {
+            transform: scale(1.10); /* Increased scale on hover */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);  /* Add a subtle shadow */
+        }
+
+        #current-date {
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 0.7rem;
+        }
+        #current-day {
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+        }
+        .title-below-date{
+            padding-top: 0.4rem; /* Reduced padding-top from 2rem to 1rem */
+        }
+        #current-date {
+            display: none;
+        }
+
+        #current-day {
+            display: none;
+        }
+
+        .description {
+            font-weight: 400;
+        }
+
+        .title-below-date {
+            padding-top: 2rem;
+            font-weight: 700; /* made title bold */
+        }
+
+        #modal-text {
+            font-weight: 700;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            display: block;
+            height: auto;
+            overflow: auto;
+            max-height: 60vh;
+            width: 100%;
+        }
+
+        #modal-image {
+            transition: transform 0.3s ease;
+        }
+
+        #modal.show #modal-image {
+            transform: scale(1.1);
+        }
+        @media (min-width: 768px) {
+            .modal-content {
+                width: 80%;
+                height: 80%;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .modal-content {
+                width: 70%;
+                height: 70%;
+            }
+        }
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #modal-image{
+            max-height: 60vh;
+            max-width: 80vw;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .modal-text-container {
+            padding: 1rem;
+            background-color: rgb(18, 18, 18);
+            border-radius: 0.375rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body style="background-color: rgb(18, 18, 18);">
+    <div id="current-date"></div>
+    <div id="current-day"></div>
+    <h1 class="text-white text-3xl text-center py-6 title-below-date">BOYPLAN MEMORIES</h1>
+    <p class="text-gray-300 text-center text-sm mx-8 mb-6 description">Brother-sister friendship in a barkada is a wild and loyal kind of love—where teasing means trust, secrets are safe beneath laughter, and even in silence, the bond feels like home, unbreakable through every fight, every adventure, and every moment that turns ordinary days into unforgettable memories.</p>
+    <div class="p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square"  onclick="openModal('https://i.imgur.com/pKitgkW.jpeg', 'aslom rakag nawong bai')" >
+                    <img src="https://i.imgur.com/pKitgkW.jpeg" alt="Image 1" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/wyftR8X.jpeg', 'dko man siya nakita <br> atleast nakita mo')">
+                    <img src="https://i.imgur.com/wyftR8X.jpeg" alt="Image 2" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/vUe0vD3.jpeg', 'bato rana guys puti lang kaayu')">
+                    <img src="https://i.imgur.com/vUe0vD3.jpeg" alt="Image 3" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/OwDSAbz.jpeg', 'low profile sa daw later na ma high')">
+                    <img src="https://i.imgur.com/OwDSAbz.jpeg" alt="Image 4" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/qaLo9gI.jpeg', 'sakto gyud nga si angel ni smile kay kun <br> si patrik jabo tanan')">
+                    <img src="https://i.imgur.com/qaLo9gI.jpeg" alt="Image 5" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/vxNPeqZ.jpeg', 'low qual with Exb')">
+                    <img src="https://i.imgur.com/vxNPeqZ.jpeg" alt="Image 6" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                 <div class="image-square" onclick="openModal('https://i.imgur.com/MER0N6K.jpeg', 'my darkess secret')">
+                    <img src="https://i.imgur.com/MER0N6K.jpeg" alt="Image 7" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/fOYbTqB.jpeg', 'bag-ong abot <br> bag-ong picture')">
+                    <img src="https://i.imgur.com/fOYbTqB.jpeg" alt="Image 8" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/zRggMkz.jpeg', 'high nami dri guys letting you know <br> lang basin nakalimtan naka niya.')">
+                    <img src="https://i.imgur.com/zRggMkz.jpeg" alt="Image 9" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/xHNbPq1.jpeg', 'yagit era pero with <br> SPONSOR')">
+                    <img src="https://i.imgur.com/xHNbPq1.jpeg" alt="Image 10" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/iBtS1eO.jpeg', 'mo paghot raba nang naka pula guys')">
+                    <img src="https://i.imgur.com/iBtS1eO.jpeg" alt="Image 11" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/vly3qlI.jpeg', 'ningkamot na bebe na, <br> purya huyog')">
+                    <img src="https://i.imgur.com/vly3qlI.jpeg" alt="Image 12" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/M3Tqr7I.jpeg', 'after mang wak wak <br> mag wal wal')">
+                    <img src="https://i.imgur.com/M3Tqr7I.jpeg" alt="Image 13" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/XaAmaBz.jpeg', 'picture muna bago sumali si <br> kenan ng volleybal #MPV')">
+                    <img src="https://i.imgur.com/XaAmaBz.jpeg" alt="Image 14" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/hB3evEm.jpeg', 'si boss DARIE ra gajuy lami dri')">
+                    <img src="https://i.imgur.com/hB3evEm.jpeg" alt="Image 15" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/yXE55xB.jpeg', 'ay kani guys Birthday nis <br> among ero kabalo <br> nagud mo kinsa')">
+                    <img src="https://i.imgur.com/yXE55xB.jpeg" alt="Image 16" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/DC76MRn.jpeg', 'maka mingaw guys <br> uban rata puhon')">
+                    <img src="https://i.imgur.com/DC76MRn.jpeg" alt="Image 17" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/5hldyrC.jpeg', 'GWAPITOS numero 1')">
+                    <img src="https://i.imgur.com/5hldyrC.jpeg" alt="Image 18" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/StwEvfK.jpeg', 'kinaya ni patrik ang tatlo')">
+                    <img src="https://i.imgur.com/StwEvfK.jpeg" alt="Image 19" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/MVSI99K.jpeg', 'minsa kaylangan natin <br> ngumiti kahit nasasaktan <br> kana sa pagiging <br> distansya nya')">
+                    <img src="https://i.imgur.com/MVSI99K.jpeg" alt="Image 20" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/W0OX3k2.jpeg', 'practice rana silag <br> ero ero guys')">
+                    <img src="https://i.imgur.com/W0OX3k2.jpeg" alt="Image 21" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/S7VIxJ8.jpeg', 'makinis mukha natin jan boss DARIE ah.')">
+                    <img src="https://i.imgur.com/S7VIxJ8.jpeg" alt="Image 22" class="transition-transform duration-200">
+                </div>
+            </div>
+             <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/ePrRcTr.jpeg', 'tatlong bebe')">
+                    <img src="https://i.imgur.com/ePrRcTr.jpeg" alt="Image 23" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/e3iLOYo.jpeg', 'after planting hahaha')">
+                    <img src="https://i.imgur.com/e3iLOYo.jpeg" alt="Image 24" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/h2YtnGK.jpeg', 'jed sa mga buhokan hahaha')">
+                    <img src="https://i.imgur.com/h2YtnGK.jpeg" alt="Image 25" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/QjQEO8M.jpeg', 'kani moy nature with TRIP')">
+                    <img src="https://i.imgur.com/QjQEO8M.jpeg" alt="Image 26" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/bdnFWzZ.jpeg', 'gwapo kay kag nginisihan boss DARIE')">
+                    <img src="https://i.imgur.com/bdnFWzZ.jpeg" alt="Image 27" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/qPCKlOe.jpeg', 'gipa uban namo ning longhair nga <br> laki kay wa daw suba sa ila, <br> nakit an rasad namo nis kilid')">
+                    <img src="https://i.imgur.com/qPCKlOe.jpeg" alt="Image 28" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/8JL6GwK.jpeg', 'bleh daw #shy type')">
+                    <img src="https://i.imgur.com/8JL6GwK.jpeg" alt="Image 29" class="transition-transform duration-200">
+                </div>
+            </div>
+            <div class="overflow-hidden rounded-lg cursor-pointer bg-white shadow-md">
+                <div class="image-square" onclick="openModal('https://i.imgur.com/syNOxrg.jpeg', 'amo ning gepakaon guys niya <br> kay balik ra namos nis gilid unya')">
+                    <img src="https://i.imgur.com/syNOxrg.jpeg" alt="Image 30" class="transition-transform duration-200">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden" onclick="closeModal()">
+        <div id="modal-content" class="relative rounded-xl shadow-2xl bg-white  max-h-full" onclick="event.stopPropagation()" style="background-color: rgb(18, 18, 18);">
+            <img id="modal-image"src="" alt="" class="rounded-t-xl object-contain ">
+            <div class="modal-text-container">
+                <p id="modal-text" class="text-white text-center text-sm"> </p>
+            </div>
+            <button onclick="closeModal()" class="absolute top-3 right-3 z-10 text-white bg-black/50 rounded-full transition-colors duration-150 hover:bg-black/70" style="padding: 0.3rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 font-bold"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>        </div>
+    </div>
+
+    <script>
+        function openModal(imgSrc, text) {
+            var modal = document.getElementById("modal");
+            var modalImg = document.getElementById("modal-image");
+            var modalText = document.getElementById("modal-text");
+            var modalContent = document.getElementById("modal-content");
+
+            modalImg.src = imgSrc;
+            modalText.textContent = text;
+            modalContent.innerHTML = `<img id="modal-image" src="${imgSrc}" alt="" class="rounded-t-xl object-contain "><div class="modal-text-container"><p id="modal-text" class="text-white text-center text-sm">${text}</p></div>`;
+
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("modal");
+            modal.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        window.onload = function() {
+            const dateElement = document.getElementById("current-date");
+            const dayElement = document.getElementById("current-day");
+            const currentDate = new Date();
+            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                                "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            const dayNames = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+
+            const day = currentDate.getDate();
+            const month = monthNames[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
+            const formattedDate = `${month} ${day} ${year}`;
+            const dayOfWeek = dayNames[currentDate.getDay()];
+
+            dateElement.textContent = formattedDate;
+            dayElement.textContent = dayOfWeek;
+        };
+    </script>
+</body>
+</html>
